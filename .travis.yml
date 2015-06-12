@@ -1,0 +1,27 @@
+# Sample .travis.yml for R projects
+
+language: r
+warnings_are_errors: false
+sudo: required
+
+env:
+ global:
+   - CRAN: http://cran.rstudio.com
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+apt_packages:
+ - libgsl0-dev gsl-bin
+
+r_binary_packages:
+ - RUnit
+ - testthat
+
+r_github_packages:
+ - jimhester/covr
+
+after_success:
+ - Rscript -e 'library(covr);codecov()'
